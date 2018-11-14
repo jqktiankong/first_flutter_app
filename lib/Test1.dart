@@ -94,7 +94,16 @@ class MyApp extends StatelessWidget {
           title: Text('Top Lakes'),
         ),
         body: ListView(
-
+          children: <Widget>[
+            new Image.asset(
+              'images/lake.jpg',
+              height: 240.0,
+              fit: BoxFit.cover,
+            ),
+            titleSection,
+            buttonSection,
+            textSection,
+          ],
         )
       ),
     );
