@@ -158,7 +158,6 @@ class _SampleAppPageState extends State<SampleAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("build");
     return new Scaffold(body: new Center(child: new Text(dataShared)));
   }
 
@@ -166,6 +165,7 @@ class _SampleAppPageState extends State<SampleAppPage> {
     var sharedData = await platform.invokeMethod("getSharedText");
     if (sharedData != null) {
       setState(() {
+        print("sharedData = " + sharedData);
         dataShared = sharedData;
       });
     } else {

@@ -2,7 +2,6 @@ package com.example.firstflutterapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.MethodCall;
@@ -10,7 +9,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
 public class MainActivity extends FlutterActivity {
-    String sharedText;
+    String sharedText = "haha";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +29,6 @@ public class MainActivity extends FlutterActivity {
             @Override
             public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
                 if (methodCall.method.contentEquals("getSharedText")) {
-                    Log.d("jqk", "sharedText = " + sharedText);
                     result.success(sharedText);
                     sharedText = null;
                 }
