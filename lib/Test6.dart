@@ -11,9 +11,8 @@ class SignaturePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
     for (int i = 0; i < points.length - 1; i++) {
-      if (points[i] != null && points[i + 1] != null)
-        print(points[i]);
-        canvas.drawLine(points[i], points[i + 1], paint);
+      if (points[i] != null && points[i + 1] != null) print(points[i]);
+      canvas.drawLine(points[i], points[i + 1], paint);
     }
   }
 
@@ -26,6 +25,7 @@ class Signature extends StatefulWidget {
 
 class SignatureState extends State<Signature> {
   List<Offset> _points = <Offset>[];
+
   Widget build(BuildContext context) {
     return new GestureDetector(
       onPanUpdate: (DragUpdateDetails details) {
