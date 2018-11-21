@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'entity.dart';
 
 void main() {
   runApp(new SampleApp());
@@ -33,6 +34,7 @@ class SampleAppPage extends StatefulWidget {
 
 class _SampleAppPageState extends State<SampleAppPage> {
   List widgets = [];
+  var datas;
 
   @override
   void initState() {
@@ -65,10 +67,13 @@ class _SampleAppPageState extends State<SampleAppPage> {
   }
 
   loadData() async {
-    String dataURL = "https://jsonplaceholder.typicode.com/posts";
+    String dataURL =
+        "http://v.juhe.cn/toutiao/index?type=top&key=93ff5c6fd6dc134fc69f6ffe3bc568a6";
     http.Response response = await http.get(dataURL);
     setState(() {
-      widgets = json.decode(response.body);
+      print(response.body);
+      var datas = new Entity.fromJson(json.decode(response.body));
+      print(datas.result.data[0].title);
     });
   }
 }

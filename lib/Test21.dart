@@ -235,6 +235,47 @@ class LogoApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return null;
+    return new _LogoAppState();
   }
+}
+
+class _LogoAppState extends State<LogoApp> with TickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> animation;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = new AnimationController(
+        duration: const Duration(milliseconds: 2000), vsync: this);
+    animation = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
+
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        controller.forward();
+      }
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return new AnimatedLogo(animation: animation);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+}
+
+void main() {
+  runApp(new LogoApp());
 }
