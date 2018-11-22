@@ -2,10 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'entity.g.dart';
 
-
 @JsonSerializable()
 class Entity extends Object {
-
   @JsonKey(name: 'reason')
   String reason;
 
@@ -15,32 +13,35 @@ class Entity extends Object {
   @JsonKey(name: 'error_code')
   int errorCode;
 
-  Entity(this.reason,this.result,this.errorCode,);
+  Entity(
+    this.reason,
+    this.result,
+    this.errorCode,
+  );
 
-  factory Entity.fromJson(Map<String, dynamic> srcJson) => _$EntityFromJson(srcJson);
-
+  factory Entity.fromJson(Map<String, dynamic> srcJson) =>
+      _$EntityFromJson(srcJson);
 }
 
-
 @JsonSerializable()
-class Result extends Object{
-
+class Result extends Object {
   @JsonKey(name: 'stat')
   String stat;
 
   @JsonKey(name: 'data')
   List<Data> data;
 
-  Result(this.stat,this.data,);
+  Result(
+    this.stat,
+    this.data,
+  );
 
-  factory Result.fromJson(Map<String, dynamic> srcJson) => _$ResultFromJson(srcJson);
-
+  factory Result.fromJson(Map<String, dynamic> srcJson) =>
+      _$ResultFromJson(srcJson);
 }
 
-
 @JsonSerializable()
-class Data extends Object{
-
+class Data extends Object {
   @JsonKey(name: 'uniquekey')
   String uniquekey;
 
@@ -68,10 +69,18 @@ class Data extends Object{
   @JsonKey(name: 'thumbnail_pic_s03')
   String thumbnailPicS03;
 
-  Data(this.uniquekey,this.title,this.date,this.category,this.authorName,this.url,this.thumbnailPicS,this.thumbnailPicS02,this.thumbnailPicS03,);
+  Data(
+    this.uniquekey,
+    this.title,
+    this.date,
+    this.category,
+    this.authorName,
+    this.url,
+    this.thumbnailPicS,
+    this.thumbnailPicS02,
+    this.thumbnailPicS03,
+  );
 
-  factory Data.fromJson(Map<String, dynamic> srcJson) => _$DataFromJson(srcJson);
-
+  factory Data.fromJson(Map<String, dynamic> srcJson) =>
+      _$DataFromJson(srcJson);
 }
-
-

@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'entity.dart';
+import 'dart:convert';
 
 void main() {
   runApp(new SampleApp());
@@ -74,6 +73,10 @@ class _SampleAppPageState extends State<SampleAppPage> {
       print(response.body);
       var datas = new Entity.fromJson(json.decode(response.body));
       print(datas.result.data[0].title);
+      String jsonString = json.encode(datas);
+//      var a = datas.toJson();
+//      print("map = " + a.toString());
+//      print("jsonString = " + jsonString);
     });
   }
 }
