@@ -33,9 +33,9 @@ class NewsListView extends StatefulWidget {
 }
 
 class _NewsListViewState extends State<NewsListView> {
-  var data;
-  bool result = false;
+  Entity entity;
   bool showData = false;
+  int statusCode = 0;
 
   @override
   void initState() {
@@ -44,13 +44,14 @@ class _NewsListViewState extends State<NewsListView> {
     getData();
   }
 
+  getProgressDialog() {}
+
   getData() async {
     Options options = new Options(
       baseUrl: "http://v.juhe.cn/toutiao",
       connectTimeout: 5000,
       receiveTimeout: 3000,
       responseType: ResponseType.JSON,
-      headers: {},
     );
     Dio dio = new Dio(options);
 
@@ -59,22 +60,75 @@ class _NewsListViewState extends State<NewsListView> {
           data: {"type": "top", "key": "93ff5c6fd6dc134fc69f6ffe3bc568a6"});
       print("请求数据");
       print(response.data);
-      data = new Entity.fromJson(response.data);
-      result = true;
-      print("true");
+      entity = new Entity.fromJson(response.data);
+      statusCode = 1;
     } on DioError catch (e) {
-      result = false;
+      statusCode = -1;
       print("false");
+    } on FormatException catch (e) {
+      statusCode = -2;
     }
-
     setState(() {});
+  }
+
+  Widget getBody() {
+    switch (statusCode) {
+      case 0:
+        return new Center(
+          child: new CircularProgressIndicator(),
+        );
+        break;
+      case 1:
+        if (entity.result.data.length == 0) {
+          return new Center(
+            child: new Text("数据为空"),
+          );
+        } else {
+          return new ListView.builder(
+            itemCount: entity.result.data.length,
+            itemBuilder: (BuildContext context, int position) {
+              return getRow(position);
+            },
+          );
+        }
+        break;
+      case -1:
+        return new Center(
+          child: new Text("网络问题"),
+        );
+        break;
+      case -2:
+        return new Center(
+          child: new Text("解析错误"),
+        );
+        break;
+    }
+  }
+
+  Widget getRow(int position) {
+    return new Row(
+      children: <Widget>[
+        new Image.network(
+          entity.result.data[position].thumbnailPicS,
+          width: 50.0,
+          height: 50.0,
+        ),
+        Expanded(
+          child: new Text(
+            "${entity.result.data[position].title}",
+            style: TextStyle(fontSize: 12.0),
+            maxLines: 2,
+          ),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Center(
-      child: new Text("$result"),
+      child: getBody(),
     );
   }
 }
